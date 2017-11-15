@@ -60,7 +60,7 @@ private float _smoothXVelocity;
 		 if (collision.gameObject.CompareTag("MurDeath"))
         
         	{
-        	    SceneManager.LoadScene("Scene 1");
+        	    SceneManager.LoadScene("MainScene");
         	}
 	}
 }

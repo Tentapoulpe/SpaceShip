@@ -8,7 +8,7 @@ public class LevelManager : MonoBehaviour {
 	public static LevelManager Instance { get; private set; }
 
 
-	public TimeSpan RunningTime { get {return DateTime.Utcnow - _startedTime; }}
+	public TimeSpan RunningTime { get {return DateTime.UtcNow - _startedTime; }}
 
 	private DateTime _startedTime;
 
@@ -19,6 +19,6 @@ public class LevelManager : MonoBehaviour {
 
 	private void Start()
 	{
-		_startedTime = DateTime.Utcnow;
+		_startedTime = DateTime.UtcNow;
 	}
 }

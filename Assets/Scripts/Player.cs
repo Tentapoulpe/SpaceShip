@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.SceneManagement;
 
-public class AddForce2 : MonoBehaviour {
+public class Player : MonoBehaviour {
 
 
 public float MaxSpeed = 100f;
@@ -16,21 +16,28 @@ public float StraffTime = 0.1f;
 private Rigidbody _rigidbody;
 private float _smoothXVelocity;
 
+private int _currentHealth;
+
 	private void Awake()
 	{
 		_rigidbody = GetComponent<Rigidbody>();
 		Assert.IsNotNull(_rigidbody);
 	}
 	// Use this for initialization
-	void Start () {
+	void Start ()
+    {
 		
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void Update ()
+    {
 		
 	}
-	private void FixedUpdate()
+
+
+
+    private void FixedUpdate()
 	{
 		Vector3 newVelocity = _rigidbody.velocity;
 		if(newVelocity.z > MaxSpeed)
@@ -55,12 +62,10 @@ private float _smoothXVelocity;
 		Debug.Log(_rigidbody.velocity.z);
 	}
 
-	private void OnCollisionEnter(Collision collision)
-	{
-		 if (collision.gameObject.CompareTag("MurDeath"))
-        
-        	{
-        	    SceneManager.LoadScene("MainScene");
-        	}
-	}
+    public void Kill()
+    {
+        _currentHealth = 0;
+        LevelManager.Instance.PlayerDeath();
+    }
+
 }

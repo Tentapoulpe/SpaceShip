@@ -4,10 +4,13 @@ using UnityEngine;
 
 public class ChangementCamera : MonoBehaviour {
 
-	public GameObject CameraFPS;
+    public static ChangementCamera Instance { get; private set; }
+
+    public GameObject CameraFPS;
 	public GameObject CameraTOP;
 	public GameObject CameraTPS;
 	private int activeCamera = 0;
+    public GameObject _currentCamera;
 
 
 	// Use this for initialization
@@ -15,8 +18,14 @@ public class ChangementCamera : MonoBehaviour {
 	{
 		
 	}
-	
-	void ChangeCamera()
+
+    private void Awake()
+    {
+        Instance = this;
+        _currentCamera = CameraTOP;
+    }
+
+    void ChangeCamera()
 	{
 		if (Input.GetKeyDown("c"))
 		{
@@ -26,6 +35,7 @@ public class ChangementCamera : MonoBehaviour {
 				CameraTOP.SetActive(false);
 				CameraTPS.SetActive(true);
 				activeCamera += 1;
+                _currentCamera = CameraTPS;
 				return;
 
 			}
@@ -35,7 +45,8 @@ public class ChangementCamera : MonoBehaviour {
 				CameraTPS.SetActive(false);
 				CameraFPS.SetActive(true);
 				activeCamera += 1;
-				return;
+                _currentCamera = CameraFPS;
+                return;
 
 			}
 			if (activeCamera == 2)
@@ -44,7 +55,8 @@ public class ChangementCamera : MonoBehaviour {
 				CameraFPS.SetActive(false);
 				CameraTOP.SetActive(true);
 				activeCamera = 0;
-				return;
+                _currentCamera = CameraTOP;
+                return;
 
 			}	
 		}

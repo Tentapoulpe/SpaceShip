@@ -7,7 +7,7 @@ public class LevelManager : MonoBehaviour {
 
 	public static LevelManager Instance { get; private set; }
 
-
+    public Player Player;
 	public TimeSpan RunningTime { get {return DateTime.UtcNow - _startedTime; }}
 
 	private DateTime _startedTime;
@@ -21,4 +21,11 @@ public class LevelManager : MonoBehaviour {
 	{
 		_startedTime = DateTime.UtcNow;
 	}
+
+    public void PlayerDeath()
+
+    {
+        ChangementCamera.Instance._currentCamera.transform.parent = null;
+        Destroy(Player.gameObject);
+    }
 }

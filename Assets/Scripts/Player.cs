@@ -16,7 +16,7 @@ public float StraffTime = 0.1f;
 private Rigidbody _rigidbody;
 private float _smoothXVelocity;
 
-private int _currentHealth;
+private int _currentHealth = 3;
 
 	private void Awake()
 	{
@@ -59,13 +59,17 @@ private int _currentHealth;
 
 	private void LateUpdate()
 	{
-		Debug.Log(_rigidbody.velocity.z);
+		
 	}
 
     public void Kill()
     {
-        _currentHealth = 0;
-        LevelManager.Instance.PlayerDeath();
+        _currentHealth--;
+
+        if ( _currentHealth == 0)
+        {
+            LevelManager.Instance.PlayerDeath();
+        }
     }
 
 }

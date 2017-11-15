@@ -4,36 +4,47 @@ using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.SceneManagement;
 
-public class Player : MonoBehaviour {
+public class Player : MonoBehaviour, ITakeDamage
+{
 
+    public float MaxSpeed = 100f;
+    public float ForwardAcceleration = 20f;
 
-public float MaxSpeed = 100f;
-public float ForwardAcceleration = 20f;
+    public float StraffMaxSpeed = 100f;
+    public float StraffTime = 0.1f;
 
-public float StraffMaxSpeed = 100f;
-public float StraffTime = 0.1f;
+    private Rigidbody _rigidbody;
+    private float _smoothXVelocity;
 
-private Rigidbody _rigidbody;
-private float _smoothXVelocity;
+    private float _currentHealth = 3;
 
-private int _currentHealth = 3;
+    public Projectile ProjectilePrefab;
 
 	private void Awake()
 	{
 		_rigidbody = GetComponent<Rigidbody>();
 		Assert.IsNotNull(_rigidbody);
-	}
-	// Use this for initialization
-	void Start ()
-    {
-		
+
+        Assert.IsNotNull(ProjectilePrefab);
 	}
 	
-	// Update is called once per frame
-	void Update ()
+
+	private void Update ()
     {
-		
+		if(Input.GetKeyDown("Fire1"))
+        {
+            SpawnProjectile();
+        }
 	}
+
+    private void SpawnProjectile()
+    {
+        Projectile projectile = (Projectile)Instantiate(ProjectilePrefab, transform.position, Quaternion.identity);
+        Vector3 initialVelocity = _rigidbody.velocity;
+        initialVelocity.x = 0f;
+        initialVelocity.y = 0f;
+        projectile.Fire(_rigidbody.velocity);
+    }
 
 
 
@@ -70,6 +81,16 @@ private int _currentHealth = 3;
         {
             LevelManager.Instance.PlayerDeath();
         }
+    }
+
+    public void TakeDamage(float damage, GameObject instigator)
+    {
+    _currentHealth -= damage;
+        if(_currentHealth <- 0f)
+        {
+        Kill();
+        }
+
     }
 
 }

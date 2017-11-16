@@ -31,7 +31,7 @@ public class Player : MonoBehaviour, ITakeDamage
 
 	private void Update ()
     {
-		if(Input.GetKeyDown("Fire1"))
+		if(Input.GetButton("Fire1"))
         {
             SpawnProjectile();
         }

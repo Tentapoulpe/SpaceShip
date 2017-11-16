@@ -8,7 +8,9 @@ public class Player : MonoBehaviour, ITakeDamage
 {
 
     public float MaxSpeed = 100f;
-    public float ForwardAcceleration = 20f;
+    private float ForwardAcceleration = 20f;
+    public float SpeedUp = 1f;
+    private float _currentSpeed;
 
     public float StraffMaxSpeed = 100f;
     public float StraffTime = 0.1f;
@@ -16,48 +18,55 @@ public class Player : MonoBehaviour, ITakeDamage
     private Rigidbody _rigidbody;
     private float _smoothXVelocity;
 
-    private float _currentHealth = 3;
+    private float _currentHealth = 1;
 
     public Projectile ProjectilePrefab;
 
-	private void Awake()
-	{
-		_rigidbody = GetComponent<Rigidbody>();
-		Assert.IsNotNull(_rigidbody);
-
-        //Assert.IsNotNull(ProjectilePrefab);
-	}
-	
-
-	/*private void Update ()
+    private void Awake()
     {
-		if(Input.GetButtonDown("Fire1"))
+        _rigidbody = GetComponent<Rigidbody>();
+        Assert.IsNotNull(_rigidbody);
+    }
+
+    private void Update()
+    {
+
+    }
+
+   /* private void Acceleration()
+    {
+        if (Input.GetKeyDown("space") && SpeedUp == 1F)
         {
-            SpawnProjectile();
+            SpeedUp = 1.5F;
         }
-	}
 
-    private void SpawnProjectile()
-    {
-        Projectile projectile = (Projectile)Instantiate(ProjectilePrefab, transform.position, Quaternion.identity);
-        Vector3 initialVelocity = _rigidbody.velocity;
-        initialVelocity.x = 0f;
-        initialVelocity.y = 0f;
-        projectile.Fire(_rigidbody.velocity);
+        if (Input.GetKeyUp("space") && SpeedUp == 1.5F)
+        {
+            SpeedUp = 1F;
+        }
     }*/
-
 
 
     private void FixedUpdate()
 	{
-		Vector3 newVelocity = _rigidbody.velocity;
+        if (Input.GetKeyDown("space") && SpeedUp == 1F)
+        {
+            SpeedUp = 1.5F;
+        }
+
+        if (Input.GetKeyUp("space") && SpeedUp == 1.5F)
+        {
+            SpeedUp = 1F;
+        }
+
+        Vector3 newVelocity = _rigidbody.velocity;
 		if(newVelocity.z > MaxSpeed)
 			{
 				newVelocity.z = MaxSpeed;
 			}
 			else 
 			{
-				newVelocity.z += ForwardAcceleration * Time.fixedDeltaTime;
+            _currentSpeed = newVelocity.z += ForwardAcceleration * SpeedUp * Time.fixedDeltaTime;
 			}
 
 			float targetVelocity = Input.GetAxis("Horizontal") * StraffMaxSpeed;

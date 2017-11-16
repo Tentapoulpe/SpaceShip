@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DestructibleObstacle : MonoBehaviour
+public class DestructibleObstacle : MonoBehaviour, ITakeDamage
 {
     public float MaxHelath = 100f;
 
@@ -17,7 +17,7 @@ public class DestructibleObstacle : MonoBehaviour
     public void TakeDamage(float damage, GameObject instigator)
     {
         _currentHealth -= damage;
-        if (_currentHealth < -0f)
+        if (_currentHealth <= 0f)
         {
             Kill();
         }

@@ -18,6 +18,7 @@ public class Projectile : MonoBehaviour {
     public void Fire(Vector3 initialVelocity)
     {
         _rigibody.velocity = initialVelocity;
+        Destroy(gameObject, 3);
 
     }
 

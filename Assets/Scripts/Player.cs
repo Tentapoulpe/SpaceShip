@@ -25,11 +25,11 @@ public class Player : MonoBehaviour, ITakeDamage
 		_rigidbody = GetComponent<Rigidbody>();
 		Assert.IsNotNull(_rigidbody);
 
-        Assert.IsNotNull(ProjectilePrefab);
+        //Assert.IsNotNull(ProjectilePrefab);
 	}
 	
 
-	private void Update ()
+	/*private void Update ()
     {
 		if(Input.GetButtonDown("Fire1"))
         {
@@ -44,7 +44,7 @@ public class Player : MonoBehaviour, ITakeDamage
         initialVelocity.x = 0f;
         initialVelocity.y = 0f;
         projectile.Fire(_rigidbody.velocity);
-    }
+    }*/
 
 
 
